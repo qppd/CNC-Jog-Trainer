@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from tkinter import filedialog, PhotoImage
+from tkinter import filedialog, PhotoImage, messagebox
 import os
 
 from ui_components.jog_panel import JogPanel
@@ -13,12 +13,23 @@ from controller.gcode_sender import GcodeSender
 ctk.set_appearance_mode("System")  # Options: "Light", "Dark", "System"
 ctk.set_default_color_theme("blue")  # You can use "green", "dark-blue", etc.
 
+
 class JogTrainerApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        # --- Log Area ---
+        self.log_frame = ctk.CTkFrame(self, fg_color="transparent")
+        self.log_frame.grid(row=4, column=0, columnspan=4, sticky="ew", padx=10, pady=(0, 10))
+        self.log_textbox = ctk.CTkTextbox(self.log_frame, height=80, width=780, state="disabled")
+        self.log_textbox.pack(fill="both", expand=True)
+
         # GRBL Controller
-        self.controller = GRBLController(on_status_change=self.update_status, on_position_update=self.update_position)
+        self.controller = GRBLController(
+            on_status_change=self.update_status,
+            on_position_update=self.update_position,
+            on_log=self.append_log
+        )
         self.gcode_sender = GcodeSender(self.controller, on_progress=self.update_progress)
 
         # Window setup
@@ -47,11 +58,12 @@ class JogTrainerApp(ctk.CTk):
         button_font = ctk.CTkFont(size=18, weight="bold")
         button_size = (120, 80)
 
-        # --- Jog Panel ---
+        # --- Jog Panel (Manual Jog for Arduino) ---
         jog_commands = {
-            "x+": self.jog_x_plus, "x-": self.jog_x_minus,
-            "y+": self.jog_y_plus, "y-": self.jog_y_minus,
-            "z+": self.jog_z_plus, "z-": self.jog_z_minus
+            "x+": self.jog_x_plus_manual,
+            "x-": self.jog_x_minus_manual,
+            "y+": self.jog_y_plus_manual,
+            "y-": self.jog_y_minus_manual
         }
         self.jog_panel = JogPanel(self.main_frame, jog_commands, fg_color="transparent")
         self.jog_panel.grid(row=0, column=0, rowspan=3, columnspan=2, sticky="nsew", padx=5, pady=5)
@@ -80,8 +92,14 @@ class JogTrainerApp(ctk.CTk):
         self.file_upload_frame = FileUploadFrame(self, self.upload_file, self.start_gcode_job, fg_color="transparent")
         self.file_upload_frame.grid(row=3, column=0, columnspan=4, sticky="ew", padx=10, pady=5)
         
+
         self.refresh_ports()
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
+    def append_log(self, message):
+        self.log_textbox.configure(state="normal")
+        self.log_textbox.insert("end", message + "\n")
+        self.log_textbox.see("end")
+        self.log_textbox.configure(state="disabled")
 
     def on_closing(self):
         self.controller.disconnect()
@@ -103,7 +121,10 @@ class JogTrainerApp(ctk.CTk):
 
     def update_status(self, status, line):
         self.status_bar.set_status(status)
-        print(f"STATUS: {status}, LINE: {line}")
+        self.append_log(f"STATUS: {status}, LINE: {line}")
+        # Show message box for error messages
+        if status == "Error":
+            messagebox.showerror("Connection Error", line)
 
     def update_position(self, pos_str):
         try:
@@ -115,7 +136,7 @@ class JogTrainerApp(ctk.CTk):
 
     def update_progress(self, progress, lines_sent, total_lines):
         self.file_upload_frame.update_progress(progress)
-        print(f"Progress: {progress*100:.1f}% ({lines_sent}/{total_lines})")
+        self.append_log(f"Progress: {progress*100:.1f}% ({lines_sent}/{total_lines})")
         if progress == 1:
             self.file_upload_frame.set_running_state(False)
 
@@ -127,12 +148,21 @@ class JogTrainerApp(ctk.CTk):
         self.controller.send_command("$J=G91 Y1 F500")
     def jog_y_minus(self):
         self.controller.send_command("$J=G91 Y-1 F500")
-    def jog_z_plus(self):
-        self.controller.send_command("$J=G91 Z1 F500")
     def jog_x_minus(self):
         self.controller.send_command("$J=G91 X-1 F500")
-    def jog_z_minus(self):
-        self.controller.send_command("$J=G91 Z-1 F500")
+
+    # --- Manual Jog Methods for Arduino Protocol ---
+    def jog_x_plus_manual(self):
+        self.controller.send_command("X+")
+
+    def jog_x_minus_manual(self):
+        self.controller.send_command("X-")
+
+    def jog_y_plus_manual(self):
+        self.controller.send_command("Y+")
+
+    def jog_y_minus_manual(self):
+        self.controller.send_command("Y-")
         
     def feed_hold(self):
         self.controller.send_command("!")

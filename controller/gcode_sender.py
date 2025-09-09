@@ -1,8 +1,9 @@
 import threading
 import time
+import logging
 
 class GcodeSender:
-    def __init__(self, controller, on_progress=None):
+    def __init__(self, controller, on_progress=None, on_error=None):
         self.controller = controller
         self.on_progress = on_progress
         self.filepath = None

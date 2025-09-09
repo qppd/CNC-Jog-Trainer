@@ -7,21 +7,15 @@ class JogPanel(ctk.CTkFrame):
         button_font = ctk.CTkFont(size=18, weight="bold")
         button_size = (120, 80)
 
-        # Jog Controls
+        # Jog Controls (X and Y only)
         self.x_plus_btn = ctk.CTkButton(self, text="X+", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["x+"])
         self.x_plus_btn.grid(row=0, column=0, padx=5, pady=5)
-        
+
         self.y_plus_btn = ctk.CTkButton(self, text="Y+", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["y+"])
         self.y_plus_btn.grid(row=0, column=1, padx=5, pady=5)
 
-        self.y_minus_btn = ctk.CTkButton(self, text="Y-", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["y-"])
-        self.y_minus_btn.grid(row=1, column=0, padx=5, pady=5)
-        
-        self.z_plus_btn = ctk.CTkButton(self, text="Z+", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["z+"])
-        self.z_plus_btn.grid(row=1, column=1, padx=5, pady=5)
-
         self.x_minus_btn = ctk.CTkButton(self, text="X-", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["x-"])
-        self.x_minus_btn.grid(row=2, column=0, padx=5, pady=5)
-        
-        self.z_minus_btn = ctk.CTkButton(self, text="Z-", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["z-"])
-        self.z_minus_btn.grid(row=2, column=1, padx=5, pady=5) 
+        self.x_minus_btn.grid(row=1, column=0, padx=5, pady=5)
+
+        self.y_minus_btn = ctk.CTkButton(self, text="Y-", font=button_font, width=button_size[0], height=button_size[1], command=jog_commands["y-"])
+        self.y_minus_btn.grid(row=1, column=1, padx=5, pady=5)
