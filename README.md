@@ -1,96 +1,130 @@
+
 <h1 align="center">CNC Jog Trainer</h1>
 
 <p align="center">
-  Isang touchscreen-friendly na CNC controller app para sa Raspberry Pi, na unang dinevelop sa Windows.
+  <b>Touchscreen-friendly CNC controller app for Raspberry Pi and Windows, with a modern Python GUI.</b><br>
+  <span style="color:gray">A touchscreen-friendly CNC controller app for Raspberry Pi, originally developed on Windows.</span>
 </p>
 
-## 🎯 Mga Layunin (Goals)
+---
 
-Ang proyektong ito ay naglalayong bumuo ng isang simpleng GUI para sa pag-kontrol ng isang GRBL-based CNC machine.
+## 📝 Overview
 
--   ✅ **Manual Jog Controls:** Madaling paggalaw ng X, Y, at Z axes.
--   ✅ **G-Code Sender:** Mag-upload at magpadala ng `.gcode` files sa iyong machine.
--   ✅ **Homing Function:** I-set ang machine sa kanyang home position.
--   ✅ **Serial Connection:** Kumonekta sa GRBL board (tulad ng Arduino) sa pamamagitan ng serial/USB.
--   ✅ **Status Display:** Ipakita ang kasalukuyang posisyon, status ng machine, at progress ng G-code.
--   ✨ **Optional Features:** Feedrate override at pagpili ng jog step size.
+CNC Jog Trainer is a modern, touchscreen-optimized graphical user interface (GUI) for controlling GRBL-based CNC machines. It is designed for use on a Raspberry Pi with a 7-inch touchscreen, but also runs on Windows. The app provides manual jog controls (X and Y axes), G-code file upload and sending, real-time status display, and robust serial connection management.
 
-## 📁 Istraktura ng Proyekto (Project Structure)
+---
+
+## 🚩 Features
+
+ - **Manual Jog Controls:** Move X and Y axes with large, touch-friendly buttons (Z-axis jog is not available in this version).
+- **G-code Sender:** Upload and send `.gcode` or `.nc` files to your CNC machine with progress tracking.
+- **Homing & Reset:** Home the machine (`$H`) and perform soft reset (`Ctrl-X`).
+- **Serial Connection Manager:** List, select, and connect/disconnect from available serial ports (e.g., Arduino/GRBL).
+- **Status & Position Display:** Real-time display of machine status and X/Y/Z coordinates.
+- **Pause/Resume/Feed Hold:** Pause, resume, and hold jobs with dedicated controls.
+- **Touchscreen-Optimized UI:** Large buttons, grid layout, and fixed 800x480 window for Raspberry Pi touchscreen.
+- **Threaded Communication:** Serial operations run in background threads to keep the UI responsive.
+
+---
+
+## 🖥️ UI/UX Design
+
+- **Grid-based layout** with header (status bar), main content (jog panel, controls), and footer (connection & file upload panels).
+- **Large, color-coded buttons** for all major actions.
+- **Progress bar** for G-code sending.
+- **Status bar** with live machine state and position.
+- **See [`ui_ux_design.md`](ui_ux_design.md) for full design documentation.**
+
+---
+
+## 📁 Project Structure
 
 ```
 JogTrainer/
 │
-├── venv/                      → Python virtual environment
-├── main.py                   → Main application logic
-├── ui_components/            → Custom widgets (e.g., jog panel, file loader)
-│   ├── jog_panel.py
-│   ├── file_upload.py
-│   └── status_bar.py
-├── controller/               → Serial & GRBL-related code
-│   ├── grbl_serial.py
-│   └── gcode_sender.py
-├── assets/                   → Icons, sample G-code, etc.
-├── requirements.txt
+├── main.py                   # Main application logic and UI
+├── requirements.txt          # Python dependencies
+├── ui_ux_design.md           # UI/UX design documentation
+├── assets/                   # Icons, images (e.g., Raspberry Pi logo)
+├── controller/               # Serial & GRBL-related code
+│   ├── grbl_serial.py        # GRBL serial communication logic
+│   └── gcode_sender.py       # G-code file sending logic
+├── ui_components/            # Custom widgets
+│   ├── jog_panel.py          # Jog controls (X/Y)
+│   ├── file_upload.py        # File upload & progress
+│   ├── status_bar.py         # Status and position display
+│   └── connection_panel.py   # Serial port selection & connection
 └── README.md
 ```
 
-## 🧰 Mga Ginagamit na Tools at Libraries
+---
 
--   **customtkinter:** Para sa paggawa ng modernong GUI.
--   **pyserial:** Para sa serial communication sa pagitan ng app at ng GRBL board.
--   **tkinter.filedialog:** Para sa pag-upload ng mga file.
--   **threading:** (Optional) Para hindi mag-freeze ang GUI habang nagpapadala ng G-code.
+## 🧰 Requirements
 
-## 🚀 Development Plan (Step-by-Step)
+- **Python 3.11+**
+- [customtkinter](https://github.com/TomSchimansky/CustomTkinter) (>=5.2.2)
+- [pyserial](https://pypi.org/project/pyserial/) (>=3.5)
+- darkdetect, packaging
+- All dependencies are listed in `requirements.txt`.
 
-Ito ang plano para sa pagbuo ng application:
+---
 
-1.  **Project Setup:** I-set up ang project folder, virtual environment, at i-install ang mga kailangan na libraries.
-2.  **Basic GUI:** Buuin ang pangunahing bintana ng app gamit ang customtkinter.
-3.  **Manual Jog Control:** Gumawa ng mga button para sa pag-jog ng X, Y, Z axes at step size selector.
-4.  **Homing and Reset:** Magdagdag ng controls para sa homing (`$H`) at reset/unlock (`Ctrl-X`).
-5.  **G-Code File Handling:** Mag-implement ng file picker para sa `.gcode` files at mga button para i-kontrol ang pagpapadala nito.
-6.  **Serial Connection Manager:** Gumawa ng UI para makapili ng COM port at mag-connect/disconnect.
-7.  **Status Display:** Ipakita ang mahahalagang impormasyon tulad ng coordinates at machine state.
-8.  **Raspberry Pi Optimization:** I-adjust ang layout para maging friendly sa 7-inch touchscreen.
 
-## 🎨 UI Layout Mockup
+## ⚡ Installation & Usage
 
-Ang app ay magkakaroon ng iba't ibang "pages" para sa bawat function:
-
-| Page     | Mga Nilalaman (Widgets)                                            |
-| :------- | :----------------------------------------------------------------- |
-| **Jog**  | Jog buttons (X, Y, Z), step size selector, home button, reset button |
-| **Upload** | File upload button, file path display, start/pause/stop buttons, progress bar |
-| **Status** | Serial port selector, GRBL status indicator, coordinates, connect button |
-
-## 🛠️ Paano Simulan (Setup and Installation)
-
-Sundan ang mga hakbang na ito para patakbuhin ang proyekto sa iyong local machine.
-
-### 1. I-clone ang Repository
+### 1. Clone the Repository
 
 ```bash
 git clone <repository-url>
 cd JogTrainer
 ```
 
-### 2. Gumawa ng Virtual Environment
+### 2. Create a Virtual Environment
 
 ```bash
-# Para sa Windows
+# For Windows
 python -m venv venv
 .\venv\Scripts\Activate
+# For Linux/Raspberry Pi
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-### 3. I-install ang mga Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Patakbuhin ang App
+### 4. Run the App
 
 ```bash
 python main.py
-``` 
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open issues or pull requests for bug fixes, improvements, or new features.
+
+---
+
+## 📄 License
+
+This project is open source. See the `LICENSE` file for details.
+
+
+This project is maintained by **Quezon Province Programmers & Developers** — a community of makers, engineers, and developers from Quezon Province, Philippines. We build open-source tools and solutions for automation, education, and industry.
+
+## 📞 Contact
+
+- 📧 Email: [quezon.province.pd@gmail.com](mailto:quezon.province.pd@gmail.com)
+- 🐙 GitHub: [github.com/qppd](https://github.com/qppd)
+- 🌐 Portfolio: [sajed-mendoza.onrender.com](https://sajed-mendoza.onrender.com)
+- 📘 Facebook: [facebook.com/qppd.dev](https://facebook.com/qppd.dev)
+- 📄 Facebook Page: [facebook.com/QUEZONPROVINCEDEVS](https://facebook.com/QUEZONPROVINCEDEVS)
+
+---
+
+<div align="center">
+  &copy; 2025 Quezon Province Programmers & Developers. All rights reserved.
+</div>
