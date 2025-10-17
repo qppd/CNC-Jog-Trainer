@@ -220,6 +220,60 @@ The LCD mount assembly includes:
 - Print Speed: 50mm/s
 - Material: PLA or PETG recommended
 
+### Jog Trainer Plate
+
+![Jog Trainer Plate](model/Jog_Trainer_Plate.png)
+
+The Jog Trainer Plate is the main interface surface for the CNC jog system, providing a robust mounting platform for all control components and accessories.
+
+**Model Files:**
+- `model/Jog_Trainer_Plate.stl` - 3D printable STL file for the plate
+- `model/Jog_Trainer_Plate.png` - Reference image
+- `model/CE3V3SE_Jog_Trainer_Plate.gcode` - Pre-sliced G-code for Creality Ender 3 V3 SE
+
+**Print Settings:**
+- Layer Height: 0.2mm
+- Infill: 20%
+- Supports: Yes (for overhangs)
+- Print Speed: 50mm/s
+- Material: PLA or PETG recommended
+
+### Jog Trainer Plate Holder
+
+![Jog Trainer Plate Holder](model/Jog_Trainer_Plate_Holder.png)
+
+The Plate Holder secures the Jog Trainer Plate in place, ensuring stability and precise alignment during CNC operation. It is designed for easy installation and removal.
+
+**Model Files:**
+- `model/Jog_Trainer_Plate_Holder.stl` - 3D printable STL file for the plate holder
+- `model/Jog_Trainer_Plate_Holder.png` - Reference image
+- `model/Jog_Trainer_Plate_Holder.f3z` - Fusion 360 source file for advanced editing
+
+**Print Settings:**
+- Layer Height: 0.2mm
+- Infill: 20%
+- Supports: Yes (for overhangs)
+- Print Speed: 50mm/s
+- Material: PLA or PETG recommended
+
+### NEMA 17 Mount
+
+![NEMA 17 Mount](model/Nema_17_mount.png)
+
+The NEMA 17 Mount is engineered to securely hold NEMA 17 stepper motors, providing vibration resistance and precise positioning for CNC movement. It features universal mounting holes and cable management options.
+
+**Model Files:**
+- `model/Nema_17_mount.stl` - 3D printable STL file for the NEMA 17 mount
+- `model/Nema_17_mount.png` - Reference image
+- `model/CE3V3SE_Nema_17_mount.gcode` - Pre-sliced G-code for Creality Ender 3 V3 SE
+
+**Print Settings:**
+- Layer Height: 0.2mm
+- Infill: 20%
+- Supports: Yes (for overhangs)
+- Print Speed: 50mm/s
+- Material: PLA or PETG recommended
+
 ## Project Structure
 
 ```
@@ -232,7 +286,16 @@ CNC_JOG_TRAINER/
 │   ├── Jog_trainer_LCD_Mount.png               # LCD mount reference image
 │   ├── Jog_trainer_LCD_Mount.stl               # 3D printable LCD mount
 │   ├── Jog_trainer_Rpi_Lcd_Case_And_Cover.png  # Complete assembly view
-│   └── CE3V3SE_Jog_trainer_LCD_Mount.gcode     # Pre-sliced G-code for Ender 3 V3 SE
+│   ├── CE3V3SE_Jog_trainer_LCD_Mount.gcode     # Pre-sliced G-code for Ender 3 V3 SE
+│   ├── Jog_Trainer_Plate.png                   # Plate reference image
+│   ├── Jog_Trainer_Plate.stl                   # 3D printable plate
+│   ├── CE3V3SE_Jog_Trainer_Plate.gcode         # Pre-sliced G-code for plate
+│   ├── Jog_Trainer_Plate_Holder.png            # Plate holder reference image
+│   ├── Jog_Trainer_Plate_Holder.stl            # 3D printable plate holder
+│   ├── Jog_Trainer_Plate_Holder.f3z            # Fusion 360 source for plate holder
+│   ├── Nema_17_mount.png                       # NEMA 17 mount reference image
+│   ├── Nema_17_mount.stl                       # 3D printable NEMA 17 mount
+│   ├── CE3V3SE_Nema_17_mount.gcode             # Pre-sliced G-code for NEMA 17 mount
 └── source/
     ├── arduino/
     │   └── JogTrainer/
