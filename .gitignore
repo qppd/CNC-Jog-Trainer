@@ -59,7 +59,10 @@ Thumbs.db
 
 # Model files (keep STL but ignore large temporary files)
 *.3mf
+
+# G-code files (ignore except model examples)
 *.gcode
+!model/*.gcode
 *.nc
 
 # Raspberry Pi specific

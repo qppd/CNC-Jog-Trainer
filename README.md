@@ -174,14 +174,19 @@ Connect to Arduino via serial monitor (115200 baud) and use these commands:
 
 ## Hardware Models
 
+The project includes 3D printable enclosure models for the complete system:
 
-The project includes 3D printable enclosure and LCD mount models for the complete system:
+### Complete Assembly
+
+![Raspberry Pi Case and LCD Cover](model/Jog_trainer_Rpi_Lcd_Case_And_Cover.png)
+
+Complete system view showing the Raspberry Pi enclosure with integrated LCD mount and protective cover.
 
 ### Jog Trainer Board Case
 
-![Jog Trainer Board Case](model/Jog_Trainer_Board_Case.png)
+![CNC Jog Trainer Board Enclosure](model/Jog_Trainer_Board_Case.png)
 
-The enclosure provides:
+The main controller enclosure provides:
 - Secure mounting for Arduino and stepper drivers
 - Ventilation for heat dissipation
 - Cable management and strain relief
@@ -189,47 +194,45 @@ The enclosure provides:
 - Professional appearance for educational environments
 
 **Model Files:**
-- `model/Jog_Trainer_Rpi_Board_Case.stl` - 3D printable STL file
+- `model/Jog_Trainer_Rpi_Board_Case.stl` - 3D printable STL file for main board enclosure
 - `model/Jog_Trainer_Board_Case.png` - Reference image
 
-**Print Settings:**
-- Layer Height: 0.2mm
-- Infill: 20%
-- Supports: Yes (for overhangs)
-- Print Speed: 50mm/s
+### LCD Mount Assembly
 
-### LCD Mount and Enclosure
+![LCD Mount Detail](model/Jog_trainer_LCD_Mount.png)
 
-![LCD Mount - Full View](model/Jog_trainer_Rpi_Lcd_Case_And_Cover.png)
-![LCD Mount - Isometric](model/Jog_trainer_LCD_Mount.png)
-
-The LCD mount and enclosure provide:
-- Secure mounting for a touchscreen LCD to the main case
-- Full enclosure and cover for protection and aesthetics
-- Easy access to display and controls
-- Designed for compatibility with the main board case
+The LCD mount assembly includes:
+- Precision mounting for 7-inch touchscreen displays
+- Secure attachment to Raspberry Pi enclosure
+- Cable routing channels
+- Adjustable viewing angles
+- Protection for display connections
 
 **Model Files:**
-- `model/CE3V3SE_Jog_trainer_LCD_Mount.gcode` - G-code for 3D printing
-- `model/Jog_trainer_LCD_Mount.stl` - 3D printable STL file
-- `model/Jog_trainer_LCD_Mount.png` - Isometric reference image
-- `model/Jog_trainer_Rpi_Lcd_Case_And_Cover.png` - Full view reference image
+- `model/Jog_trainer_LCD_Mount.stl` - 3D printable STL file for LCD mount
+- `model/Jog_trainer_LCD_Mount.png` - Reference image
+- `model/CE3V3SE_Jog_trainer_LCD_Mount.gcode` - Pre-sliced G-code for Creality Ender 3 V3 SE
 
 **Print Settings:**
 - Layer Height: 0.2mm
 - Infill: 20%
 - Supports: Yes (for overhangs)
 - Print Speed: 50mm/s
+- Material: PLA or PETG recommended
 
 ## Project Structure
 
 ```
 CNC_JOG_TRAINER/
-├── README.md                          # This file
-├── diagram/                           # System diagrams and documentation
-├── model/                             # 3D models and enclosure designs
-│   ├── Jog_Trainer_Board_Case.png    # Enclosure reference image
-│   └── Jog_Trainer_Rpi_Board_Case.stl # 3D printable enclosure
+├── README.md                                    # This file
+├── diagram/                                     # System diagrams and documentation
+├── model/                                       # 3D models and enclosure designs
+│   ├── Jog_Trainer_Board_Case.png              # Main board enclosure reference
+│   ├── Jog_Trainer_Rpi_Board_Case.stl          # 3D printable board enclosure
+│   ├── Jog_trainer_LCD_Mount.png               # LCD mount reference image
+│   ├── Jog_trainer_LCD_Mount.stl               # 3D printable LCD mount
+│   ├── Jog_trainer_Rpi_Lcd_Case_And_Cover.png  # Complete assembly view
+│   └── CE3V3SE_Jog_trainer_LCD_Mount.gcode     # Pre-sliced G-code for Ender 3 V3 SE
 └── source/
     ├── arduino/
     │   └── JogTrainer/
